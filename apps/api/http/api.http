@@ -1,0 +1,80 @@
+@baseUrl = http://localhost:3000
+
+# Cole aqui o token retornado pelo login
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIwNGQ4N2QyNi1hMDhmLTQ3ZTktYTA3My01YzI4NDMwMWE3N2QiLCJ0ZW5hbnRJZCI6ImQ3MmQ0YjgyLWI0OWEtNGQyZC05OWZmLTg3ZDEzNzUxODM5MyIsImZpcnN0TmFtZSI6IkFkbWluaXN0cmFkb3IiLCJsYXN0TmFtZSI6IlNpc3RlbWEiLCJlbWFpbCI6ImFkbWluQGJsZXJvbmUubG9jYWwiLCJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNzg1MTc0NDQ3LCJleHAiOjE3ODUxNzgwNDd9.DO02V6ENmT9KABLUJTmyIdmwOlWRRh4EeDXxLKNlbSk
+# IDs para facilitar os testes
+@tenantId = d72d4b82-b49a-4d2d-99ff-87d137518393
+@userId = 04d87d26-a08f-47e9-a073-5c284301a77d
+
+###
+### Teste da API
+GET {{baseUrl}}
+
+###
+### Login
+POST {{baseUrl}}/iam/auth/login
+Content-Type: application/json
+
+{
+  "tenantId": "",
+  "username": "",
+  "password": ""
+}
+
+###
+### Login Administrador
+POST {{baseUrl}}/iam/auth/login
+Content-Type: application/json
+
+{
+  "tenantId": "{{tenantId}}",
+  "email": "admin@blerone.local",
+  "password": "Admin@123"
+}
+
+###
+### Teste de Permissão
+GET {{baseUrl}}/iam/auth/permissions-test
+Authorization: Bearer {{token}}
+
+###
+### Listar Usuários
+GET {{baseUrl}}/iam/users
+Authorization: Bearer {{token}}
+
+###
+### Buscar Usuário por ID
+GET {{baseUrl}}/iam/users/{{userId}}
+Authorization: Bearer {{token}}
+
+###
+### Criar Usuário
+POST {{baseUrl}}/iam/users
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "tenantId": "{{tenantId}}",
+  "firstName": "Maria",
+  "lastName": "Silva",
+  "email": "maria@blerone.local",
+  "username": "maria",
+  "password": "Senha@123"
+}
+
+###
+### Atualizar Usuário
+PUT {{baseUrl}}/iam/users/{{userId}}
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "firstName": "Maria Atualizada",
+  "lastName": "Silva Atualizada",
+  "active": true
+}
+
+###
+### Excluir Usuário
+DELETE {{baseUrl}}/iam/users/{{userId}}
+Authorization: Bearer {{token}}

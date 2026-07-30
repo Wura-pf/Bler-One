@@ -1,0 +1,17 @@
+@host = http://localhost:3000
+
+### Login
+
+POST {{host}}/iam/auth/login
+Content-Type: application/json
+
+{
+  "tenantId": "d72d4b82-b49a-4d2d-99ff-87d137518393",
+  "email": "marina@blerone.com",
+  "password": "123456"
+}
+
+### Usuário autenticado
+
+GET {{host}}/iam/auth/me
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MGNhNTAwNi00OTFmLTQ3OWItOGRkZS1iN2FiNjYzZTk3NTMiLCJ0ZW5hbnRJZCI6ImQ3MmQ0YjgyLWI0OWEtNGQyZC05OWZmLTg3ZDEzNzUxODM5MyIsImZpcnN0TmFtZSI6Ik1hcmluYSIsImxhc3ROYW1lIjoiRmVybmFuZGVzIiwiZW1haWwiOiJtYXJpbmFAYmxlcm9uZS5jb20iLCJ1c2VybmFtZSI6Im1hcmluYSIsImlhdCI6MTc4NTAyNjQxMiwiZXhwIjoxNzg1MDMwMDEyfQ.iTH4Vpy6j6Lej5DAG1pIZvj5tS-52DZWLaw-LlKXPG0

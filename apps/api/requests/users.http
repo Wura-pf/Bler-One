@@ -1,0 +1,15 @@
+@host = http://localhost:3000
+
+### Criar usuário
+
+POST {{host}}/iam/users
+Content-Type: application/json
+
+{
+  "tenantId": "d72d4b82-b49a-4d2d-99ff-87d137518393",
+  "firstName": "Marina",
+  "lastName": "Fernandes",
+  "email": "marina@blerone.com",
+  "username": "marina",
+  "password": "123456"
+}
