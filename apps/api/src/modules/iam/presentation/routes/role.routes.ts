@@ -3,6 +3,7 @@ import { Router } from "express";
 import {
   makeCreateRoleController,
   makeListRolesController,
+  makeUpdateRoleController,
 } from "../../factories/create-role.factory";
 
 import { authMiddleware } from "../../../../infrastructure/http/middlewares/auth.middleware";
@@ -12,6 +13,7 @@ const router = Router();
 
 const createRoleController = makeCreateRoleController();
 const listRolesController = makeListRolesController();
+const updateRoleController = makeUpdateRoleController();
 
 router.get(
   "/",
@@ -40,6 +42,30 @@ router.post(
     try {
       const response = await createRoleController.handle({
         body: req.body,
+      });
+
+      return res.status(response.status).json(response.body);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+router.put(
+  "/:id",
+  authMiddleware,
+  authorize("iam.role.update"),
+  async (req, res, next) => {
+    try {
+      const response = await updateRoleController.handle({
+        params: {
+          id: String(req.params.id),
+        },
+        body: {
+          tenantId: String(req.user!.tenantId),
+          name: String(req.body.name),
+          slug: String(req.body.slug),
+        },
       });
 
       return res.status(response.status).json(response.body);

@@ -2,20 +2,10 @@ import { AppError } from "../../../../shared/errors/app-error";
 
 import { RoleRepository } from "../../domain/repositories/role.repository";
 
-export interface UpdateRoleRequest {
-  id: string;
-  tenantId: string;
-
-  name: string;
-  slug: string;
-}
-
-export interface UpdateRoleResponse {
-  id: string;
-
-  name: string;
-  slug: string;
-}
+import {
+  UpdateRoleRequest,
+  UpdateRoleResponse,
+} from "../dto/update-role.dto";
 
 export class UpdateRoleUseCase {
   constructor(
@@ -49,8 +39,6 @@ export class UpdateRoleUseCase {
 
     role.changeName(request.name);
     role.changeSlug(request.slug);
-
-    role.incrementVersion();
 
     const updatedRole =
       await this.roleRepository.update(role);

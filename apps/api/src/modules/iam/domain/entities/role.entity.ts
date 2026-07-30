@@ -26,21 +26,21 @@ export class Role extends Entity<RoleProps> {
 
   changeName(name: string): void {
     this.props.name = name;
+    this.touch();
   }
 
   changeSlug(slug: string): void {
     this.props.slug = slug;
-  }
-
-  incrementVersion(): void {
-    this.props.version += 1;
+    this.touch();
   }
 
   markAsDeleted(): void {
     this.props.deletedAt = new Date();
+    this.touch();
   }
 
   restore(): void {
     this.props.deletedAt = null;
+    this.touch();
   }
 }
