@@ -4,6 +4,7 @@ import cors from "cors";
 import { errorHandler } from "./shared/errors/error-handler";
 
 import userRoutes from "./modules/iam/presentation/routes/user.routes";
+import roleRoutes from "./modules/iam/presentation/routes/role.routes";
 import { authRoutes } from "./modules/iam/presentation/routes/auth.routes";
 
 export const app = express();
@@ -18,6 +19,7 @@ app.get("/", (_request, response) => {
 });
 
 app.use("/iam/users", userRoutes);
+app.use("/iam/roles", roleRoutes);
 
 app.use("/iam/auth", authRoutes);
 
