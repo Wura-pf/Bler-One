@@ -2,6 +2,7 @@ import { CreateRoleRequest } from "../../application/dto/create-role.dto";
 import { UpdateRoleRequest } from "../../application/dto/update-role.dto";
 
 import { CreateRoleUseCase } from "../../application/use-cases/create-role.use-case";
+import { DeleteRoleUseCase } from "../../application/use-cases/delete-role.use-case";
 import {
   ListRolesRequest,
   ListRolesUseCase,
@@ -21,6 +22,12 @@ export interface UpdateRoleHttpRequest {
     id: string;
   };
   body: Omit<UpdateRoleRequest, "id">;
+}
+
+export interface DeleteRoleHttpRequest {
+  params: {
+    id: string;
+  };
 }
 
 export interface HttpResponse {
@@ -80,6 +87,23 @@ export class UpdateRoleController {
     return {
       status: 200,
       body: result,
+    };
+  }
+}
+
+export class DeleteRoleController {
+  constructor(
+    private readonly deleteRoleUseCase: DeleteRoleUseCase
+  ) {}
+
+  async handle(
+    request: DeleteRoleHttpRequest
+  ): Promise<HttpResponse> {
+    await this.deleteRoleUseCase.execute(request.params.id);
+
+    return {
+      status: 204,
+      body: null,
     };
   }
 }

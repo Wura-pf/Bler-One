@@ -2,6 +2,7 @@ import { Router } from "express";
 
 import {
   makeCreateRoleController,
+  makeDeleteRoleController,
   makeListRolesController,
   makeUpdateRoleController,
 } from "../../factories/create-role.factory";
@@ -14,6 +15,7 @@ const router = Router();
 const createRoleController = makeCreateRoleController();
 const listRolesController = makeListRolesController();
 const updateRoleController = makeUpdateRoleController();
+const deleteRoleController = makeDeleteRoleController();
 
 router.get(
   "/",
@@ -69,6 +71,25 @@ router.put(
       });
 
       return res.status(response.status).json(response.body);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+router.delete(
+  "/:id",
+  authMiddleware,
+  authorize("iam.role.delete"),
+  async (req, res, next) => {
+    try {
+      const response = await deleteRoleController.handle({
+        params: {
+          id: String(req.params.id),
+        },
+      });
+
+      return res.status(response.status).send();
     } catch (error) {
       next(error);
     }
