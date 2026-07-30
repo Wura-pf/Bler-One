@@ -40,7 +40,7 @@ router.get(
     try {
       const response = await getUserByIdController.handle({
         params: {
-          id: req.params.id,
+          id: String(req.params.id),
         },
       });
 
@@ -76,7 +76,7 @@ router.put(
     try {
       const response = await updateUserController.handle({
         params: {
-          id: req.params.id,
+          id: String(req.params.id),
         },
         body: req.body,
       });
@@ -96,7 +96,7 @@ router.delete(
     try {
       const response = await deleteUserController.handle({
         params: {
-          id: req.params.id,
+          id: String(req.params.id),
         },
       });
 

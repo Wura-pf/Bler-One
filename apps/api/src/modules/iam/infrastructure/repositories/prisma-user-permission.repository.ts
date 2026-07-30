@@ -20,10 +20,11 @@ export class PrismaUserPermissionRepository
           code: permissionCode,
         },
         role: {
-          userRoles: {
+          users: {
             some: {
-              userId,
+              id: userId,
               tenantId,
+              deletedAt: null,
             },
           },
         },
@@ -40,20 +41,17 @@ export class PrismaUserPermissionRepository
     const rolePermissions = await this.prisma.rolePermission.findMany({
       where: {
         role: {
-          userRoles: {
+          users: {
             some: {
-              userId,
+              id: userId,
               tenantId,
+              deletedAt: null,
             },
           },
         },
       },
-      select: {
-        permission: {
-          select: {
-            code: true,
-          },
-        },
+      include: {
+        permission: true,
       },
     });
 

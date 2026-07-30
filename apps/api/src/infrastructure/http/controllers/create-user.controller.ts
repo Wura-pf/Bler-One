@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 
-import { CreateUserUseCase } from "../../application/use-cases/create-user.use-case";
+import { CreateUserUseCase } from "../../../modules/iam/application/use-cases/create-user.use-case";
 
 export class CreateUserController {
   constructor(

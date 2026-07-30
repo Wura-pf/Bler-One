@@ -36,10 +36,6 @@ export class PrismaService {
     return this.client.permission;
   }
 
-  get userRole() {
-    return this.client.userRole;
-  }
-
   get rolePermission() {
     return this.client.rolePermission;
   }

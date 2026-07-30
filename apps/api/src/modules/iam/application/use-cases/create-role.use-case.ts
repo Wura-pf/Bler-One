@@ -41,8 +41,6 @@ export class CreateRoleUseCase {
       name: request.name,
       slug: request.slug,
 
-      active: true,
-
       createdAt: now,
       updatedAt: now,
       deletedAt: null,
